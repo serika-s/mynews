@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// 以下に追記
+// 以下に追記　(09課題４は21・22行目)
 Route::group(['prefix' => 'admin'], function() {
     Route::get('news/create','Admin\NewsController@add');
     Route::get('profile/create','Admin\ProfileController@add');
@@ -23,7 +23,8 @@ Route::group(['prefix' => 'admin'], function() {
 });
 
 
-// 課題３
+// 09課題３
+// 「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください。
 Route::get('XXX','AAAController@bbb');
 
 
