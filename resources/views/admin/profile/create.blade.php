@@ -11,7 +11,7 @@
             <div class="col-md-8 mx-auto">
                 <h2>My プロフィール</h2>
                 
-                 <from action="{{ action('Admin\ProfileController@create') }}" method="post" enctype="multipart/form-data">
+                 <form action="{{ action('Admin\ProfileController@create') }}" method="post" enctype="multipart/form-data">
                     
                     @if (count($errors) > 0)
                         <ul>
@@ -23,19 +23,19 @@
                     <div class="form-group row">
                         <label class="col-md-2">氏名</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="name" velue="{{old('name') }}">
+                            <input type="text" class="form-control" name="name" value="{{old('name') }}">
                         </div>
                     </div>
                      <div class="form-group row">
                         <label class="col-md-2">性別</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="gender" velue="{{old('gender') }}">
+                            <input type="text" class="form-control" name="gender" value="{{old('gender') }}">
                         </div>
                     </div>
                      <div class="form-group row">
                         <label class="col-md-2">趣味</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="hobby" velue="{{old('hobby') }}">
+                            <input type="text" class="form-control" name="hobby" value="{{old('hobby') }}">
                         </div>
                     </div>
                     <div class="form-group row">
