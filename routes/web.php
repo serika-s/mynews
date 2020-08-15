@@ -22,6 +22,7 @@ Route::get('XXX','AAAController@bbb');
 
 // 以下に追記　(09課題４は21・22行目)
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    
     Route::get('news/create','Admin\NewsController@add');
     Route::post('news/create','Admin\NewsController@create'); #追記1 #投稿画面作成
     Route::get('news', 'Admin\NewsController@index'); #追記2 #一覧に表示
@@ -30,10 +31,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('news/delete', 'Admin\NewsController@delete'); #追記4 #削除
     
     Route::get('profile/create','Admin\ProfileController@add');
-    Route::post('profile/create','Admin\ProfileController@create'); #追記1
-    Route::get('Profile', 'Admin\ProfileController@index'); #追記2 #一覧に表示
+    Route::post('profile/create','Admin\ProfileController@create'); #追記1 #Myプロフィール作成
+    Route::get('profile', 'Admin\ProfileController@index'); #追記2 #一覧に表示
     Route::get('profile/edit','Admin\ProfileController@edit');
     Route::post('profile/edit','Admin\ProfileController@update'); #追記1
+    Route::get('profile/delete', 'Admin\ProfileController@delete'); #追記4 #削除
     
 });
 
@@ -46,3 +48,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -5,8 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-// 以下を追記することでNews Modelが扱えるようになる
+// 追記 (News Modelが扱えるようになる)
 use App\News;
+
+// 追記 (Historyモデルの使用を宣言)
+use App\History;
+
+// 追記 (Carbonを使う)
+use Carbon\Carbon;
+
 
 class NewsController extends Controller
 {
@@ -19,7 +26,7 @@ class NewsController extends Controller
     public function create(Request $request) #createメソッド=投稿画面作成
     {
 
-        // 以下を追記 #保存の処理
+        // 追記 (保存の処理)
         // Varidationを行う
         $this->validate($request, News::$rules);
     
@@ -47,7 +54,7 @@ class NewsController extends Controller
         return redirect('admin/news/create');
     }
         
-    // 以下を追記
+    // 追記
     public function index(Request $request) #indexメソッド=一覧に表示
     {
         $cond_title = $request->cond_title;
@@ -61,7 +68,7 @@ class NewsController extends Controller
         return view('admin.news.index', ['posts' => $posts, 'cond_title' => $cond_title]);
     }
     
-    // 以下を追記
+    // 追記
     public function edit(Request $request) 
     {
         // News Modelからデータを取得する
@@ -99,10 +106,16 @@ class NewsController extends Controller
         // 該当するデータを上書きして保存する
         $news->fill($news_form)->save();
         
+        // 追記
+        $history = new History;
+        $history->news_id = $news->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
+        
         return redirect('admin/news/');
     }
     
-    // 以下を追記
+    // 追記
     public function delete(Request $request) #deleteメソッド=削除
     {
         // 該当するNews Modelを取得
