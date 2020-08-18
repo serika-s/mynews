@@ -11,7 +11,7 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    //  name と gender と hoby と introductionを追記
+    //  name と gender と hoby と introductionと profileimage_pathを追記
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
@@ -20,6 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('gender'); // プロフィールの性別を保存するカラム
             $table->string('hobby'); // プロフィールの趣味を保存するカラム
             $table->string('introduction'); // プロフィールの自己紹介を保存するカラム
+            $table->string('profileimage_path')->nullable();  // 画像のパスを保存するカラム
             $table->timestamps();
         });
     }

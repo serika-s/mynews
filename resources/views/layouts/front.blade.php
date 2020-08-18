@@ -23,8 +23,8 @@
         <!---- Styles -->
         {{-- Laravel標準で用意されているCSSを読み込みます --}}
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
-        {{-- この章の後半で作成するCSSを読み込みます*profile.css --}}
-        <link href="{{ secure_asset('css/profile.css') }}" rel="stylesheet">
+        {{-- この章の後半で作成するCSSを読み込みます*front.css --}}
+        <link href="{{ secure_asset('css/front.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">
@@ -45,9 +45,9 @@
                             
                         </ul>
                         
-                        <!----  Right Side Of Nacbar -->
+                        <!----  Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
-                           
+                            
                         {{-- 以下を追記 --}}
                         <!---- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
@@ -76,7 +76,7 @@
                              </li>
                             @endguest         
                             {{-- 以上までを追記 --}}
-                           
+                            
                         </ul>    
                     </div>
                 </div>

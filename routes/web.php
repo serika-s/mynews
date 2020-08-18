@@ -19,7 +19,6 @@ Route::get('/', function () {
 // 「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください。
 Route::get('XXX','AAAController@bbb');
 
-
 // 以下に追記　(09課題４は21・22行目)
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     
@@ -39,16 +38,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     
 });
 
-
+// ログイン認証の設定
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::get('/', 'NewsController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'ProfileController@index');

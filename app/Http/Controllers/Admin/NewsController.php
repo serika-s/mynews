@@ -14,18 +14,15 @@ use App\History;
 // 追記 (Carbonを使う)
 use Carbon\Carbon;
 
-
 class NewsController extends Controller
 {
     public function add()
     {
         return view('admin.news.create');
     }
-    
-   
-    public function create(Request $request) #createメソッド=投稿画面作成
+    // createメソッド=投稿画面作成
+    public function create(Request $request) 
     {
-
         // 追記 (保存の処理)
         // Varidationを行う
         $this->validate($request, News::$rules);
@@ -34,11 +31,11 @@ class NewsController extends Controller
         $form = $request->all();
         
         // formから画像が送信されてきたら、保存して、$news->image_path に画像のパスを保存する
-        if (isset($form['image'])) {
-            $path = $request->file('image')->store('public/image');
-            $news->image_path = basename($path);
-        }   else {
-              $news->image_path = null;
+        if ($form['image']) {
+          $path = $request->file('image')->store('public/image');
+          $news->image_path = basename($path);
+        } else {
+            $news->image_path = null;
         }
         
         // フォームから送信されてきた_tokenを削除する
@@ -55,10 +52,11 @@ class NewsController extends Controller
     }
         
     // 追記
-    public function index(Request $request) #indexメソッド=一覧に表示
+    // indexメソッド=一覧に表示
+    public function index(Request $request) 
     {
         $cond_title = $request->cond_title;
-        if ($cond_title != ''){
+        if ($cond_title != '') {
             // 検索されたら検索結果を取得する
             $posts = News::where('title',$cond_title)->get();
         } else {
@@ -79,8 +77,8 @@ class NewsController extends Controller
         return view('admin.news.edit', ['news_form' => $news]);
     }
  
- 
-    public function update(Request $request) #updateメソッド=更新
+    // updateメソッド=更新 
+    public function update(Request $request)
     {
         // Validationをかける
         $this->validate($request, News::$rules);
@@ -98,7 +96,7 @@ class NewsController extends Controller
         } else {
             $news_form ['image_path'] = $news->image_path;
         }
-    
+        
         unset($news_form['_token']);
         unset($news_form['image']);
         unset($news_form['remove']);
@@ -116,7 +114,8 @@ class NewsController extends Controller
     }
     
     // 追記
-    public function delete(Request $request) #deleteメソッド=削除
+    // deleteメソッド=削除
+    public function delete(Request $request)
     {
         // 該当するNews Modelを取得
         $news = News::find($request->id);
@@ -127,4 +126,3 @@ class NewsController extends Controller
     
     
 }
-
