@@ -48,6 +48,7 @@
                                     <td>{{ \Str::limit($profiles->hobby, 100) }}</td>
                                     <td>{{ \Str::limit($profiles->introduction, 250) }}</td>
                                     <td>
+                                        <!-- 追記016 編集リンク・削除リンクを作成 -->
                                         <div>
                                             <a href="{{ action('Admin\ProfileController@edit', ['id' => $profiles->id]) }}">編集</a>
                                         </div>

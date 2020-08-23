@@ -1,18 +1,22 @@
 <!DOCTYPE html>
+<!-- カッコの中身はPHPの内容、カッコの中身を文字列に置換し、HTMLの中に記載する -->
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
+        <!-- windowsの基本ブラウザであるedgeに対応するという記載 -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- 画面幅を小さくしたとき、例えばスマートフォンで見たときなどに文字や画像の大きさを調整してくれるタグ -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <!---- CSRF Token -->
         {{-- 後の章で説明します --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
-        {{-- 各ページごとにtitleタグを入れるために@yieldで空けておきます。 --}}
+        <!-- titleというセッションの内容を表示、各ページ毎にタイトルを変更できるようにするため -->
+        {{-- 各ページごとにtitleタグを入れるために@yieldで空けておきます --}}
         <title>@yield('title')</title>
         
         <!---- Scripts -->
+        <!-- asset(‘ファイルパス’)は、publicディレクトリのパスを返す関数「/js/app.js」というパスを生成する -->
         {{-- Laravel標準で用意されているJavascriptを読み込みます --}}
         <script src="{{ secure_asset('js/app.js') }}" defer></script>
         
@@ -31,7 +35,10 @@
             {{-- 画面上部に表示するナビゲーションバーです。 --}}
             <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
                 <div class="container">
+                    <!-- url(“パス”)は、そのままURLを返すメソッド -->
                     <a class="navbar-brand" href="{{ url('/') }}">
+                        <!-- assetと似たような関数で、configフォルダのapp.phpの中にあるnameにアクセス -->
+                        <!-- アプリケーションの名前「Laravel」が格納されている -->
                         {{ config('app.name', 'Laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
@@ -48,17 +55,20 @@
                         <!----  Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             
-                        {{-- 以下を追記 --}}
+                        {{-- 追記012 認証リンク --}}
                         <!---- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
+                        <!-- gestは認証されていないユーザー -->
                         @guest
+                        　　<!-- Route関数で /login というURL生成 -->
+                        　　<!-- ヘルパ関数「__」翻訳文字列の取得 -->
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                         {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" 
                                    href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                
+                                    <!-- ログイン中のユーザーの名前 -->
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 
@@ -68,7 +78,6 @@
                                                       document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -76,7 +85,6 @@
                              </li>
                             @endguest         
                             {{-- 以上までを追記 --}}
-                            
                         </ul>    
                     </div>
                 </div>

@@ -42,14 +42,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            <!-- foreachを使って取得したデータを処理し、各データの idと名前、メールアドレスを表示 -->
+                            <!-- foreachはblade の構文 -->
                             @foreach($posts as $news)
                             
                                 <tr>
                                     <th>{{ $news->id }}</th>
+                                    <!-- \Str::limit()は、文字列を指定した数値で切り詰めるというメソッド、半角の文字数で認識 -->
                                     <td>{{ \Str::limit($news->title, 100) }}</td>
                                     <td>{{ \Str::limit($news->body, 250) }}</td>
                                     <td>
+                                        <!-- 追記016 編集リンク・削除リンクを作成 -->
                                         <div>
                                             <a href="{{ action('Admin\NewsController@edit',['id' => $news->id]) }}">編集</a>
                                         </div>

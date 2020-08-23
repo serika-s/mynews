@@ -19,22 +19,30 @@ Route::get('/', function () {
 // 「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください。
 Route::get('XXX','AAAController@bbb');
 
-// 以下に追記　(09課題４は21・22行目)
+// 追記：09
+// Route::group は、いくつかのRoutingの設定をgroup化する役割
+// [‘prefix’ => ‘admin’] の設定を、無名関数function(){}の中の全てのRoutingの設定に適用させる
+// [‘prefix’ => ‘admin’] は、無名関数function(){} の中の設定のURLを http://XXXXXX.jp/admin/ から始まるURLにしている
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     
-    Route::get('news/create','Admin\NewsController@add');
-    Route::post('news/create','Admin\NewsController@create'); #追記1 #投稿画面作成
-    Route::get('news', 'Admin\NewsController@index'); #追記2 #一覧に表示
-    Route::get('news/edit', 'Admin\NewsController@edit'); #追記3 #更新
-    Route::post('news/edit', 'Admin\NewsController@update'); #追記3 #更新
-    Route::get('news/delete', 'Admin\NewsController@delete'); #追記4 #削除
+    // http://XXXXXX.jp/admin/news/create にアクセスが来たら、Controller Admin\NewsController のAction addに渡すという設定
+    // Route::get('admin/news/create', 'Admin\NewsController@add'); と下記は同じ意味になる
+    // Routingの設定の最後に 「->middleware(‘auth’)」 と入れることで、リダイレクトされる（ログインしていない場合のアクセス時）#追記012
+    // 通常のページ表示にはgetを受け取る、フォーム送信時にはpostを受け取る
+    Route::get('news/create','Admin\NewsController@add'); #ニュース新規作成画面へのアクセス
+    Route::post('news/create','Admin\NewsController@create'); #追記013 #ニュース新規作成画面へのアクセス
+    Route::get('news', 'Admin\NewsController@index'); #追記015 #一覧表示へのアクセス
+    Route::get('news/edit', 'Admin\NewsController@edit'); #追記016 #編集
+    Route::post('news/edit', 'Admin\NewsController@update'); #追記016 #編集
+    Route::get('news/delete', 'Admin\NewsController@delete'); #追記016 #削除
     
-    Route::get('profile/create','Admin\ProfileController@add');
-    Route::post('profile/create','Admin\ProfileController@create'); #追記1 #Myプロフィール作成
-    Route::get('profile', 'Admin\ProfileController@index'); #追記2 #一覧に表示
-    Route::get('profile/edit','Admin\ProfileController@edit');
-    Route::post('profile/edit','Admin\ProfileController@update'); #追記1
-    Route::get('profile/delete', 'Admin\ProfileController@delete'); #追記4 #削除
+    // http://XXXXXX.jp/admin/profile/create にアクセスが来たら、Controller Admin\ProfileController のAction addに渡すという設定
+    Route::get('profile/create','Admin\ProfileController@add'); #09課題 #Myプロフィール作成画面へのアクセス
+    Route::post('profile/create','Admin\ProfileController@create'); #追記013 #Myプロフィール作成画面へのアクセス
+    Route::get('profile', 'Admin\ProfileController@index'); #追記015 #一覧表示へのアクセス
+    Route::get('profile/edit','Admin\ProfileController@edit'); #09課題 #編集
+    Route::post('profile/edit','Admin\ProfileController@update'); #追記016 #編集
+    Route::get('profile/delete', 'Admin\ProfileController@delete'); #追記016 #削除
     
 });
 

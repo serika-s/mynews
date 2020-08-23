@@ -8,7 +8,8 @@ class News extends Model
 {
     protected $guarded = array('id');
 
-    //以下を追記
+    //追記014 validationの設定
+    // arrayメソッドは配列を作る
     public static $rules = array(
         'title' => 'required',
         'body' => 'required',

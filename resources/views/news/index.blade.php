@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container">
+        <!-- 追記heroku 下記5行オリジナル -->
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <h2>News</h2>
+            </div>
+        </div>    
         <hr color="#c0c0c0">
         @if (!is_null($headline))
             <div class="row">

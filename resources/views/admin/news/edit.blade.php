@@ -1,22 +1,18 @@
-{{-- layouts/admin.blade.phpを読み込む --}}
 @extends('layouts.admin')
-
-{{-- admin.blade.phpの@yield('title')に'ニュースの編集'を埋め込む --}}
 @section('title', 'ニュースの編集')
 
-{{-- admin.blade.phpの@yield('content')に以下のタグを埋め込む --}}
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>ニュース編集</h2>
-                <form action="{{ action('Admin\NewsController@update') }}" method="post" enctyoe="multipart/form-data">
+                <form action="{{ action('Admin\NewsController@update') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
                                 <li>{{ $e }}</li>
                             @endforeach
-                        </ul>    
+                        </ul>
                     @endif
                     <div class="form-group row">
                         <label class="col-md-2" for="title">タイトル</label>
@@ -27,7 +23,7 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="body">本文</label>
                         <div class="col-md-10">
-                            <textarea class ="form-control" name="body" rows="20">{{ $news_form->body }}</textarea>
+                            <textarea class="form-control" name="body" rows="20">{{ $news_form->body }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -50,7 +46,7 @@
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-primary" value="更新">
                         </div>
-                    </div>    
+                    </div>
                 </form>
                 {{-- 以下を追記 --}}
                 <div class="row mt-5">

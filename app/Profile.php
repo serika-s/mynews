@@ -8,7 +8,7 @@ class Profile extends Model
 {
     protected $guarded = array('id');
     
-    // 以下を追記
+    // 追記014
     public static $rules = array(
         'name' => 'required',
         'gender' => 'required',

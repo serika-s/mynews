@@ -16,14 +16,17 @@ use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
+    // add関数というActionを実装
     public function add()
     {
+        // views/admin/profileディレクトリ配下のcreate.blade.php というファイルを呼び出す
         return view('admin.profile.create');
     }
-
+    // 追記013
+    // createメソッド（登録画面作成）
     public function create(Request $request)
     {
-        // 追記
+        // 追記014
         // Varidationを行う
         $this->validate($request, Profile::$rules);
     
@@ -38,8 +41,9 @@ class ProfileController extends Controller
             $profiles->profileimage_path = null;
         }
 
-        // フォームから送信されてきた_tokenを削除する
+        // フォームから送信されてきた_tokenとimageを削除する
         unset($form['_token']);
+        unset($form['profileimage']);
         
         // データベースに保存する
         $profiles->fill($form);
@@ -49,8 +53,8 @@ class ProfileController extends Controller
         return redirect('admin/profile/create');
     }
     
-    // 追記
-    // indexメソッド=一覧に表示
+    // 追記015
+    // indexメソッド(一覧表示・検索する処理）
     public function index(Request $request) 
     {
         $cond_name = $request->cond_name;
@@ -64,7 +68,8 @@ class ProfileController extends Controller
         return view('admin.profile.index', ['posts' => $posts, 'cond_name' => $cond_name]);
     }
     
-    // 追記
+    // 追記016
+    // editメソッド（更新・編集画面を処理）
     public function edit(Request $request) 
     {
         // Profile Modelからデータを取得する
@@ -72,10 +77,11 @@ class ProfileController extends Controller
         if (empty($profiles)) {
             abort(404);
         }
+        // views/admin/profileディレクトリ配下のedit.blade.php というファイルを呼び出す
         return view('admin.profile.edit', ['profile_form' => $profiles]);
     }
     
-    // updateメソッド=更新
+    // updateメソッド（更新・編集画面から送信されたフォームデータを処理）
     public function update(Request $request) 
     {
         // Validationをかける
@@ -86,14 +92,18 @@ class ProfileController extends Controller
         
         // 送信されてきたフォームを格納する
         $profile_form = $request->all();
-        if (isset($profile_form['profileimage'])) {
-          $path = $request->file('profileimage')->store('public/profileimage');
-          $profiles->profileimage_path = basename($path);
-          unset($profile_form['profileimage']);
-        } elseif (isset($request->remove)) {
-          $profiles->profileimage_path = null;
-            unset($profile_form['remove']);
+        if ($request->remove == 'true') {
+            $profile_form['profileimage_path'] = null;
+        } elseif ($request->file('profileimage')) {
+            $path = $request->file('profileimage')->store('public/profileimage');
+            $profile_form ['profileimage_path'] = basename($path);
+        } else {
+            $profile_form ['profileimage_path'] = $profiles->profileimage_path;
         }
+        
+        unset($profile_form['_token']);
+        unset($profile_form['profileimage']);
+        unset($profile_form['remove']);
          
         // 該当するデータを上書きして保存する
         $profiles->fill($profile_form)->save();
