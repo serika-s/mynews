@@ -14,6 +14,9 @@ use App\History;
 // 追記 (Carbonを使う)
 use Carbon\Carbon;
 
+// 追記heroku画像
+use Storage;
+
 class NewsController extends Controller
 {
     // add関数というActionを実装
@@ -47,10 +50,12 @@ class NewsController extends Controller
         if (isset($form['image'])) {
           // fileメソッドは、Illuminate\Http\UploadedFileクラスのインスタンスを返す（画像をアップロードするメソッド）
           // storeメソッドは、どこのフォルダにファイルを保存するか、パスを指定する
-          $path = $request->file('image')->store('public/image');
+          // $path = $request->file('image')->store('public/image'); をherokuで下記のように編集
+          $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
           // basenameメソッドは、パスではなくファイル名だけ取得する
           // 取得したファイル名をnewsテーブルのimage_pathに代入   
-          $news->image_path = basename($path);
+          // $news->image_path = basename($path); をherokuで下記のように編集
+          $news->image_path = Storage::disk('s3')->url($path);
         } else {
             // Newsテーブルのimage_pathカラムにnullを代入するという意味
             $news->image_path = null;
@@ -131,8 +136,10 @@ class NewsController extends Controller
         if ($request->remove == 'true') {
             $news_form['image_path'] = null;
         } elseif ($request->file('image')) {
-            $path = $request->file('image')->store('public/image');
-            $news_form ['image_path'] = basename($path);
+            // $path = $request->file('image')->store('public/image'); をherokuで下記のように編集
+            $path = Storage::disk('s3')->putFile('/',$news_form['image'],'public');
+            // $news_form ['image_path'] = basename($path); をherokuで下記のように編集
+            $news->image_path = Storage::disk('s3')->url($path);
         } else {
             $news_form ['image_path'] = $news->image_path;
         }

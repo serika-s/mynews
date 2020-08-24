@@ -14,6 +14,9 @@ use App\PHistory;
 // 追記 (Carbonを使う)
 use Carbon\Carbon;
 
+// 追記heroku画像
+use Storage;
+
 class ProfileController extends Controller
 {
     // add関数というActionを実装
@@ -35,8 +38,10 @@ class ProfileController extends Controller
         
         // フォームからプロフィール画像が送信されてきたら、保存して、$profiles->profileimage_path に画像のパスを保存する
         if (isset($form['profileimage'])) {
-          $path = $request->file('profileimage')->store('public/profileimage');
-          $profiles->profileimage_path = basename($path);
+          // $path = $request->file('profileimage')->store('public/profileimage'); をherokuで下記のように編集
+          $path = Storage::disk('s3')->putFile('/',$form['profileimage'],'public');
+          // $profiles->profileimage_path = basename($path); をherokuで下記のように編集
+          $profiles->profileimage_path = Storage::disk('s3')->url($path);
         } else {
             $profiles->profileimage_path = null;
         }
@@ -95,8 +100,10 @@ class ProfileController extends Controller
         if ($request->remove == 'true') {
             $profile_form['profileimage_path'] = null;
         } elseif ($request->file('profileimage')) {
-            $path = $request->file('profileimage')->store('public/profileimage');
-            $profile_form ['profileimage_path'] = basename($path);
+            // $path = $request->file('profileimage')->store('public/profileimage'); をherokuで下記のように編集
+            $path = Storage::disk('s3')->putFile('/',$profile_form['profileimage'],'public');
+            // $profile_form ['profileimage_path'] = basename($path); をherokuで下記のように編集
+            $profiles->profileimage_path = Storage::disk('s3')->url($path);
         } else {
             $profile_form ['profileimage_path'] = $profiles->profileimage_path;
         }

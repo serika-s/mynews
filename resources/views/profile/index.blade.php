@@ -17,7 +17,8 @@
                             <div class="caption mx-auto">
                                 <div class="profileimage">
                                     @if ($headline->profileimage_path)
-                                        <img src="{{ asset('storage/profileimage/' . $headline->profileimage_path) }}">
+                                        <!-- <img src="{{ asset('storage/profileimage/' . $headline->profileimage_path) }}"> をherokuで下記のように編集 -->
+                                        <img src="{{ $headline->profileimage_path }}">
                                     @endif
                                 </div>
                                 <div class="name p-2">
@@ -67,7 +68,8 @@
                             </div>
                             <div class="profileimage col-md-6 text-right mt-4">
                                 @if ($post->profileimage_path)
-                                    <img src="{{ asset('storage/profileimage/' . $post->profileimage_path) }}">
+                                    <!-- <img src="{{ asset('storage/profileimage/' . $post->profileimage_path) }}"> をherokuで下記のように編集 -->
+                                    <img src="{{ $post->profileimage_path }}">
                                 @endif
                             </div>
                         </div>
