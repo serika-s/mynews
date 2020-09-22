@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 // 追記 (News Modelが扱えるようになる)
 use App\News;
 
-// 追記 (Historyモデルの使用を宣言)
+// 追記017 (Historyモデルの使用を宣言)
 use App\History;
 
-// 追記 (Carbonを使う)
+// 追記017 (Carbonを使う)
 use Carbon\Carbon;
 
 // 追記heroku画像
@@ -49,7 +49,7 @@ class NewsController extends Controller
         // 投稿画面で画像を選択していれば$form[’image’]にデータが入り、選択していなければnullを返す仕様
         if (isset($form['image'])) {
           // fileメソッドは、Illuminate\Http\UploadedFileクラスのインスタンスを返す（画像をアップロードするメソッド）
-          // storeメソッドは、どこのフォルダにファイルを保存するか、パスを指定する
+          // storeメソッドは、どこのフォルダにファ��ルを保存するか、パスを指定する
           // $path = $request->file('image')->store('public/image'); をherokuで下記のように編集
           $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
           // basenameメソッドは、パスではなくファイル名だけ取得する
@@ -151,9 +151,10 @@ class NewsController extends Controller
         // 該当するデータを上書きして保存する
         $news->fill($news_form)->save();
         
-        // 追記
+        // 追記017
         $history = new History;
         $history->news_id = $news->id;
+        // Carbonを使って取得した現在時刻を、Historyモデルの edited_at として記録
         $history->edited_at = Carbon::now();
         $history->save();
         

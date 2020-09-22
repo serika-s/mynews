@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 // 追記 (Profile Modelが扱えるようになる)
 use App\Profile;
 
-// 追記 (Historyの使用を宣言)
+// 追記017 (Historyの使用を宣言)
 use App\PHistory;
 
-// 追記 (Carbonを使う)
+// 追記017 (Carbonを使う)
 use Carbon\Carbon;
 
 // 追記heroku画像
@@ -115,7 +115,7 @@ class ProfileController extends Controller
         // 該当するデータを上書きして保存する
         $profiles->fill($profile_form)->save();
         
-        // 追記
+        // 追記017
         $phistory = new PHistory;
         $phistory->profile_id = $profiles->id;
         $phistory->edited_at = Carbon::now();

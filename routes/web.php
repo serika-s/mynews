@@ -51,6 +51,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// 追記019
 Route::get('/', 'NewsController@index');
 
 Route::get('/profile', 'ProfileController@index');
