@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.43.2](https://github.com/heroku/cli/compare/v7.43.1...v7.43.2) (2020-09-22)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.43.1](https://github.com/heroku/cli/compare/v7.43.0...v7.43.1) (2020-09-21)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+# [7.43.0](https://github.com/heroku/cli/compare/v7.42.13...v7.43.0) (2020-09-15)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.42.13](https://github.com/heroku/cli/compare/v7.42.12...v7.42.13) (2020-08-27)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.42.12](https://github.com/heroku/cli/compare/v7.42.11...v7.42.12) (2020-08-26)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.42.11](https://github.com/heroku/cli/compare/v7.42.10...v7.42.11) (2020-08-25)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.42.10](https://github.com/heroku/cli/compare/v7.42.9...v7.42.10) (2020-08-25)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.42.9](https://github.com/heroku/cli/compare/v7.42.8...v7.42.9) (2020-08-25)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
+## [7.42.8](https://github.com/heroku/cli/compare/v7.42.7...v7.42.8) (2020-08-17)
+
+**Note:** Version bump only for package heroku
+
+
+
+
+
 ## [7.42.6](https://github.com/heroku/cli/compare/v7.42.5...v7.42.6) (2020-07-30)
 
 **Note:** Version bump only for package heroku
